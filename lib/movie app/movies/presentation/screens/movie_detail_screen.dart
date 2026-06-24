@@ -12,9 +12,8 @@ import '../../domain/entities/recommendation.dart';
 import '../controller/movie_controller.dart';
 
 class MovieDetailScreen extends StatelessWidget {
-  final int id;
 
-  const MovieDetailScreen({super.key, required this.id});
+  const MovieDetailScreen({super.key, });
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +157,7 @@ class MovieDetailContent extends GetView<MovieController> {
                     Text(
                       movie.overview,
                       style: const TextStyle(
-                        fontSize: 14.0,
+                        fontSize: 16.0,
                         fontWeight: FontWeight.w400,
                         letterSpacing: 1.2,
                       ),

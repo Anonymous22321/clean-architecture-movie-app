@@ -6,6 +6,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/utilizes/constance.dart';
+import '../../screens/movie_detail_screen.dart';
 
 class TopRatedComponent extends GetView<MovieController> {
   const TopRatedComponent({super.key});
@@ -44,8 +45,10 @@ class TopRatedComponent extends GetView<MovieController> {
                 return Container(
                   padding: const EdgeInsets.only(right: 8.0),
                   child: InkWell(
-                    onTap: () {
+                    onTap: () async{
                       /// TODO : NAVIGATE TO  MOVIE DETAILS
+                      await controller.fetchMovieDetails(movie.movieId);
+                      Get.to(()=> MovieDetailScreen());
                     },
                     child: ClipRRect(
                       borderRadius: const BorderRadius.all(

@@ -51,7 +51,7 @@ class NowPlayingComponent extends GetView<MovieController> {
                   /// TODO : NAVIGATE TO MOVIE DETAILS
 
                   controller.fetchMovieDetails(item.movieId);
-                  Get.to(()=> MovieDetailScreen(id: item.movieId));
+                  Get.to(()=> MovieDetailScreen());
                   // Get.to(()=> MovieDetails());
                 },
                 child: Stack(

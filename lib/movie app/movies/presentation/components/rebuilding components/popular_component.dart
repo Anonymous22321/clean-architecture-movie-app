@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:clean_architecture_and_solid_principles/movie%20app/movies/presentation/screens/movie_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:get/get.dart';
@@ -43,8 +44,10 @@ class PopularComponent extends GetView<MovieController> {
                 return Container(
                   padding: const EdgeInsets.only(right: 8.0),
                   child: InkWell(
-                    onTap: () {
+                    onTap: () async{
                       /// TODO : NAVIGATE TO  MOVIE DETAILS
+                      await controller.fetchMovieDetails(movie.movieId);
+                      Get.to(()=> MovieDetailScreen());
                     },
                     child: ClipRRect(
                       borderRadius: const BorderRadius.all(
