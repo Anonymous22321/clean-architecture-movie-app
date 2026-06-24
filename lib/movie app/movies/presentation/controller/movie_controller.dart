@@ -1,0 +1,137 @@
+import 'package:clean_architecture_and_solid_principles/movie%20app/movies/domain/entities/movie.dart';
+import 'package:clean_architecture_and_solid_principles/movie%20app/movies/domain/entities/movie_details.dart';
+import 'package:clean_architecture_and_solid_principles/movie%20app/movies/domain/entities/recommendation.dart';
+import 'package:clean_architecture_and_solid_principles/movie%20app/movies/domain/usecases/get_movie_details.dart';
+import 'package:clean_architecture_and_solid_principles/movie%20app/movies/domain/usecases/get_now_playing_movies.dart';
+import 'package:clean_architecture_and_solid_principles/movie%20app/movies/domain/usecases/get_popular_movies.dart';
+import 'package:get/get.dart';
+
+import '../../domain/usecases/base.dart';
+import '../../domain/usecases/get_recommendation.dart';
+import '../../domain/usecases/get_top_rated_movies.dart';
+
+class MovieController extends GetxController {
+  /// usecases
+  final GetNowPlayingMoviesUseCase _getNowPlayingMoviesUseCase;
+  final GetPopularMoviesUseCase _getPopularMoviesUseCase;
+  final GetTopRatedMoviesUseCase _getTopRatedMoviesUseCase;
+  final GetMovieDetailsUseCase _getMovieDetailsUseCase;
+  final GetRecommendationUseCase _getRecommendationUseCase;
+
+  MovieController(
+    this._getNowPlayingMoviesUseCase,
+    this._getPopularMoviesUseCase,
+    this._getTopRatedMoviesUseCase,
+    this._getMovieDetailsUseCase,
+    this._getRecommendationUseCase,
+  );
+
+  /// Lists
+  final RxList<Movie> nowPlayingMovies = <Movie>[].obs;
+  final RxList<Movie> popularMovies = <Movie>[].obs;
+  final RxList<Movie> topRatedMovies = <Movie>[].obs;
+  final RxList<Recommendation> recommendationMovies = <Recommendation>[].obs;
+
+
+  // State for holding a single movie details item
+  // (Rxn represents a nullable observable)
+  Rxn<MovieDetail> movieDetails = Rxn<MovieDetail>();
+
+  /// error
+  final RxnString error = RxnString();
+
+  /// loading
+  final RxBool _isLoading = false.obs;
+
+  RxBool get isLoading => _isLoading;
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchNowPlayingMovies();
+    fetchPopularMovies();
+    fetchTopRatedMovies();
+  }
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+  }
+
+  @override
+  void onClose() {
+    // TODO: implement onClose
+    super.onClose();
+  }
+
+  Future<void> fetchNowPlayingMovies() async {
+    _isLoading.value = true;
+
+    final result = await _getNowPlayingMoviesUseCase(const NoParameters());
+    result.fold((fail) => error.value = fail.errMessage, (success) {
+      nowPlayingMovies.value = success;
+    });
+    _isLoading.value = false;
+  }
+
+  Future<void> fetchPopularMovies() async {
+    _isLoading.value = true;
+
+    final result = await _getPopularMoviesUseCase(const NoParameters());
+    result.fold((fail) => error.value = fail.errMessage, (success) {
+      popularMovies.value = success;
+      print(popularMovies[0]);
+    });
+    _isLoading.value = false;
+  }
+
+  Future<void> fetchTopRatedMovies() async {
+    _isLoading.value = true;
+
+    final result = await _getTopRatedMoviesUseCase(const NoParameters());
+    result.fold((fail) => error.value = fail.errMessage, (success) {
+      topRatedMovies.value = success;
+    });
+    _isLoading.value = false;
+  }
+
+  Future<void> fetchMovieDetails(int movieId) async {
+    _isLoading.value = true;
+    final result = await _getMovieDetailsUseCase(
+      MovieDetailsParameters(movieId: movieId),
+    );
+    result.fold(
+      (fail) => error.value = fail.errMessage,
+      (success) => movieDetails.value = success,
+    );
+    await fetchRecommendation(movieId);
+    _isLoading.value = false;
+  }
+
+  Future<void> fetchRecommendation(int movieId) async {
+    _isLoading.value = true;
+    final result = await _getRecommendationUseCase(
+      RecommendationParameters(movieId: movieId),
+    );
+    result.fold(
+      (fail) => error.value = fail.errMessage,
+      (success) => recommendationMovies.value = success,
+    );
+    _isLoading.value = false;
+  }
+
+  // Add this helper getter inside your Movie entity or Model
+  // String get formattedRuntime {
+  //   if (runtime == null || runtime == 0) return 'N/A';
+  //
+  //   final int hours = runtime! ~/ 60; // Get the number of full hours
+  //   final int minutes = runtime! % 60; // Get the remaining minutes
+  //
+  //   if (hours > 0) {
+  //     return '${hours}h ${minutes}m'; // Example: "2h 22m"
+  //   } else {
+  //     return '${minutes}m'; // Example: "45m" (for short films/episodes)
+  //   }
+  // }
+}

@@ -1,0 +1,58 @@
+import 'package:clean_architecture_and_solid_principles/movie%20app/core/services/service_locator.dart';
+import 'package:clean_architecture_and_solid_principles/movie%20app/movies/presentation/screens/movies_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'movie app/core/services/binding.dart';
+
+void main() async {
+  runApp(const MyApp());
+  //  ApiServices apiService = RemoteDatasource();
+  //  ContractWeatherRepository weatherRepository = WeatherRepository(url: "$baseUrl${Endpoints.currentWeather}",apiService);
+  // Weather weather = await GetWeatherByCity(weatherRepository).execute("London");
+  // print(weather.pressureIn);
+
+  // Movie movie = Movie(
+  //   title: "title",
+  //   overview: "overview",
+  //   backdropPath: "backdropPath",
+  //   movieId: 1,
+  //   genres: [0],
+  //   voteAverage: 1.0,
+  //   releaseDate: "releaseDate",
+  // );
+  // Movie movie1 = Movie(
+  //   title: "title",
+  //   overview: "overview",
+  //   backdropPath: "backdropPath",
+  //   movieId: 1,
+  //   genres: [0],
+  //   voteAverage: 1.0,
+  //   releaseDate: "releaseDate",
+  // );
+  // print(movie==movie1);
+  // print(movie.hashCode);
+  // print(movie1.hashCode);
+  // 1. Ensure Flutter framework loops are initialized
+  WidgetsFlutterBinding.ensureInitialized();
+  // 2. Initialize the GetIt Service Locator configuration graph
+  setupServiceLocator();
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Movie app',
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: Colors.grey.shade900,
+      ),
+      initialBinding: InitialBinding(),
+      home: const MoviesScreen(),
+    );
+  }
+}
