@@ -3,7 +3,7 @@ const String baseUrl = 'https://api.themoviedb.org/3';
 const String movieBaseURL = 'https://api.themoviedb.org/3/movie';
 const String tvBaseURL = 'https://api.themoviedb.org/3/tv';
 const String searchBaseURL = 'https://api.themoviedb.org/3/search';
-const String imageBaseURL = 'https://image.tmdb.org/t/p/w500';
+const String imageBaseURL = 'https://image.tmdb.org/t/p/original';
 
 
 ///API key
