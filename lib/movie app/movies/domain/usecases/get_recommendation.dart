@@ -5,7 +5,7 @@ import 'package:clean_architecture_and_solid_principles/movie%20app/movies/domai
 import 'package:dartz/dartz.dart';
 
 class GetRecommendationUseCase
-    extends BaseUseCase<List<Recommendation>, RecommendationParameters> {
+    extends BaseMovieUseCase<List<Recommendation>, RecommendationParameters> {
    GetRecommendationUseCase({required this.baseMoviesRepository});
 
   final BaseMoviesRepository baseMoviesRepository;

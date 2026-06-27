@@ -6,7 +6,7 @@ import '../../../core/errors/failure.dart';
 /// making callable class to use it as function and make abstract class
 /// to avoid name conflict when working with others.
 
-abstract class BaseUseCase<T, P> {
+abstract class BaseMovieUseCase<T, P> {
   Future<Either<Failure, T>> call(P parameters);
 }
 

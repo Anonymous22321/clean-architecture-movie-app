@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 import '../../../core/errors/failure.dart';
 import '../repository/base_movies_repository.dart';
 
-class GetMovieDetailsUseCase implements BaseUseCase<MovieDetail,MovieDetailsParameters> {
+class GetMovieDetailsUseCase implements BaseMovieUseCase<MovieDetail,MovieDetailsParameters> {
   final BaseMoviesRepository moviesRepository;
 
 

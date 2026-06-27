@@ -5,7 +5,7 @@ import '../entities/movie.dart';
 import '../repository/base_movies_repository.dart';
 import 'base.dart';
 
-class GetNowPlayingMoviesUseCase implements BaseUseCase<List<Movie>,NoParameters> {
+class GetNowPlayingMoviesUseCase implements BaseMovieUseCase<List<Movie>,NoParameters> {
   final BaseMoviesRepository moviesRepository;
 
   GetNowPlayingMoviesUseCase(this.moviesRepository);

@@ -5,7 +5,7 @@ import '../entities/movie.dart';
 import '../repository/base_movies_repository.dart';
 import 'base.dart';
 
-class GetTopRatedMoviesUseCase implements BaseUseCase<List<Movie>,NoParameters> {
+class GetTopRatedMoviesUseCase implements BaseMovieUseCase<List<Movie>,NoParameters> {
   final BaseMoviesRepository moviesRepository;
 
   GetTopRatedMoviesUseCase(this.moviesRepository);
