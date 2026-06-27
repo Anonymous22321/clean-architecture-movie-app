@@ -5,5 +5,6 @@ import 'package:dartz/dartz.dart';
 abstract class BaseTvRepository {
 Future<Either<Failure,List<Tv>>> getOnTheAir();
 Future<Either<Failure,List<Tv>>> getPopular();
+Future<Either<Failure,List<Tv>>> getTopRated();
 
 }

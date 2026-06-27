@@ -3,7 +3,8 @@ import 'package:clean_architecture_and_solid_principles/movie%20app/core/api/api
 import '../../../core/utilizes/constance.dart';
 import '../models/tv_model.dart';
 
-abstract class BaseTvRemoteDatasource implements GetOnTheAir, GetPopular {}
+abstract class BaseTvRemoteDatasource implements GetOnTheAir, GetPopular,GetTopRated {}
+
 
 class TvRemoteDatasource implements BaseTvRemoteDatasource {
   final ApiConsumer _api;
@@ -31,6 +32,16 @@ class TvRemoteDatasource implements BaseTvRemoteDatasource {
       (response[results] as List).map((e) => TvModel.fromJson(e)),
     );
   }
+
+  @override
+  Future<List<TvModel>> getTopRated() async{
+   final response = await _api.get(tvBaseURL + TvEndPoints.topRated,queryParameters: {
+     "api_key":apiKey
+   });
+    return List<TvModel>.from(
+      (response[results] as List).map((e) => TvModel.fromJson(e)),
+    );
+  }
 }
 
 /// TV Remote Datasource Methods
@@ -40,3 +51,7 @@ abstract class GetOnTheAir {
 abstract class GetPopular {
   Future<List<TvModel>> getPopular();
 }
+abstract class GetTopRated {
+  Future<List<TvModel>> getTopRated();
+}
+

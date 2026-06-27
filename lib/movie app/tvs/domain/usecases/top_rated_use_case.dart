@@ -6,13 +6,12 @@ import '../../../movies/domain/usecases/base.dart';
 import '../entities/tv.dart';
 import '../repository/base_tv_repository.dart';
 
-class GetPopularTvUseCase implements BaseTvUseCase<List<Tv>, NoParameters> {
+class GetTopRatedTvUseCase extends BaseTvUseCase<List<Tv>, NoParameters>{
   final BaseTvRepository tvRepository;
-
-  GetPopularTvUseCase(this.tvRepository);
-
+  GetTopRatedTvUseCase(this.tvRepository);
   @override
-  Future<Either<Failure, List<Tv>>> call(NoParameters parameters) async {
-    return await tvRepository.getPopular();
+  Future<Either<Failure, List<Tv>>> call(NoParameters parameters) async{
+   return await tvRepository.getTopRated();
   }
+
 }

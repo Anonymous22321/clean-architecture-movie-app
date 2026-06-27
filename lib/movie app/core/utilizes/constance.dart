@@ -18,6 +18,7 @@ const String backdropPath = 'backdrop_path';
 const String posterPath = 'poster_path';
 const String voteAverage = 'vote_average';
 const String releaseDate = 'release_date';
+const String firstAirDate = 'first_air_date';
 const String genreIds = 'genre_ids';
 const String genres = 'genres';
 const String name = 'name';

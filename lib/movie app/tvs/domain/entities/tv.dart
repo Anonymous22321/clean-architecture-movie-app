@@ -7,10 +7,10 @@ abstract class Tv extends Equatable{
   final int tvId;
   final List<int> genreIds;
   final double voteAverage;
-  final String releaseDate;
+  final String firstAirDate;
 
  const Tv(this.name, this.overview, this.backdropPath, this.tvId, this.genreIds,
-      this.voteAverage, this.releaseDate);
+      this.voteAverage, this.firstAirDate);
   @override
   List<Object> get props => [
         name,
@@ -19,6 +19,6 @@ abstract class Tv extends Equatable{
         tvId,
         genreIds,
         voteAverage,
-        releaseDate,
+        firstAirDate,
   ];
 }

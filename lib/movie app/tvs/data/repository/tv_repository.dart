@@ -29,4 +29,14 @@ class TvRepository implements BaseTvRepository {
       return Left(ServerFailure(failure.errorModel.statusMessage));
     }
   }
+
+  @override
+  Future<Either<Failure, List<Tv>>> getTopRated() async{
+    try{
+      final result =  await baseTvRemoteDataSource.getTopRated();
+      return Right(result);
+    }on ServerExceptions catch(failure){
+      return Left(ServerFailure(failure.errorModel.statusMessage));
+    }
+  }
 }

@@ -9,7 +9,7 @@ class TvModel extends Tv {
     super.tvId,
     super.genres,
     super.voteAverage,
-    super.releaseDate,
+    super.firstAirDate,
   );
 
   factory TvModel.fromJson(Map<String, dynamic> json) {
@@ -20,7 +20,7 @@ class TvModel extends Tv {
       json[id],
       List.from(json[genreIds].map((genre) => genre)),
       json[voteAverage],
-      json[releaseDate],
+      json[firstAirDate],
     );
   }
 }

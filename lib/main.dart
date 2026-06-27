@@ -1,9 +1,9 @@
 import 'package:clean_architecture_and_solid_principles/movie%20app/core/services/service_locator.dart';
-import 'package:clean_architecture_and_solid_principles/movie%20app/movies/presentation/screens/movies_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'movie app/core/services/binding.dart';
+import 'movie app/tvs/presentation/screens/tv_screen.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.grey.shade900,
       ),
       initialBinding: InitialBinding(),
-      home: const MoviesScreen(),
+      home: const TvScreen(),
     );
   }
 }

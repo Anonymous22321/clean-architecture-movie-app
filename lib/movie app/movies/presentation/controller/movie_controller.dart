@@ -53,17 +53,7 @@ class MovieController extends GetxController {
     fetchTopRatedMovies();
   }
 
-  @override
-  void onReady() {
-    // TODO: implement onReady
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    // TODO: implement onClose
-    super.onClose();
-  }
 
   Future<void> fetchNowPlayingMovies() async {
     _isLoading.value = true;
