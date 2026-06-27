@@ -1,12 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:clean_architecture_and_solid_principles/movie%20app/movies/presentation/components/rebuilding%20components/full_movie_list.dart';
-import 'package:clean_architecture_and_solid_principles/movie%20app/movies/presentation/screens/movie_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shimmer/shimmer.dart';
 
-import '../../../core/utilizes/constance.dart';
 import '../controller/movie_controller.dart';
 
 
