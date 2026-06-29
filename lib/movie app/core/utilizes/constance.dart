@@ -23,6 +23,7 @@ const String genreIds = 'genre_ids';
 const String genres = 'genres';
 const String name = 'name';
 const String runtime = 'runtime';
+const String episodeRuntime = 'episode_run_time';
 
 /// General Methods
  String imageUrl(String path) => '$imageBaseURL$path';

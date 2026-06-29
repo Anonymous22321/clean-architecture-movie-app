@@ -1,4 +1,6 @@
 import 'package:clean_architecture_and_solid_principles/movie%20app/tvs/presentation/components/rebuilding%20components/on_the_air_component.dart';
+import 'package:clean_architecture_and_solid_principles/movie%20app/tvs/presentation/screens/popular_tv_full_list.dart';
+import 'package:clean_architecture_and_solid_principles/movie%20app/tvs/presentation/screens/top_rated_tv_full_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../tvs/presentation/components/rebuilding components/top_rated_component.dart';
@@ -21,9 +23,9 @@ class TvScreen extends GetView<TvController> {
             children: [
               // Method in package animate_do for animation
               const OnTheAirComponent(),
-              ListTitleComponent(title: "Popular", onTap: () {}),
+              ListTitleComponent(title: "Popular", onTap: () => Get.to(()=> PopularTvFullList())),
               const TvPopularComponent(),
-              ListTitleComponent(title: "Top Rated", onTap: (){}),
+              ListTitleComponent(title: "Top Rated", onTap: ()=> Get.to(()=> TopRatedTvFullList())),
               const TvTopRatedComponent(),
               const SizedBox(height: 50.0),
               ],

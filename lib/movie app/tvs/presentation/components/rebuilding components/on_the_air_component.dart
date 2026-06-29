@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:clean_architecture_and_solid_principles/movie%20app/tvs/presentation/controller/tv_controller.dart';
+import 'package:clean_architecture_and_solid_principles/movie%20app/tvs/presentation/screens/tv_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -46,12 +47,10 @@ class OnTheAirComponent extends GetView<TvController> {
             items: controller.onTheAirTvList.map((item) {
               return GestureDetector(
                 key: const Key('openMovieMinimalDetail'),
-                onTap: () {
-                  /// TODO : NAVIGATE TO MOVIE DETAILS
-
-                  // controller.fetchMovieDetails(item.movieId);
-                  // Get.to(()=> MovieDetailScreen());
-                  // Get.to(()=> MovieDetails());
+                onTap: () async{
+                  /// TODO : NAVIGATE TO TV DETAILS`
+                  controller.fetchTvDetails(item.tvId);
+                 Get.to(()=> TvDetailScreen());
                 },
                 child: Stack(
                   children: [

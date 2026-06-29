@@ -1,7 +1,10 @@
+import 'package:clean_architecture_and_solid_principles/movie%20app/tvs/domain/entities/tv_details.dart';
 import 'package:get/get.dart';
 
 import '../../../movies/domain/usecases/base.dart';
 import '../../domain/entities/tv.dart';
+import '../../domain/usecases/base_tv.dart';
+import '../../domain/usecases/get_tv_details_use_case.dart';
 import '../../domain/usecases/on_the_air_use_case.dart';
 import '../../domain/usecases/popular_use_case.dart';
 import '../../domain/usecases/top_rated_use_case.dart';
@@ -10,11 +13,14 @@ class TvController extends GetxController {
   final GetPopularTvUseCase getPopularUseCase;
   final GetTopRatedTvUseCase getTopRatedUseCase;
   final GetOnTheAirUseCase getOnTheAirUseCase;
+  final GetTvDetailsUseCase getTvDetailsUseCase;
 
   /// Lists
   final RxList<Tv> popularTvList = <Tv>[].obs;
   final RxList<Tv> topRatedTvList = <Tv>[].obs;
   final RxList<Tv> onTheAirTvList = <Tv>[].obs;
+
+  final Rxn<TvDetails> tvDetails = Rxn<TvDetails>();
 
   /// error
   final RxnString errorMessage = RxnString();
@@ -28,6 +34,7 @@ class TvController extends GetxController {
     required this.getPopularUseCase,
     required this.getTopRatedUseCase,
     required this.getOnTheAirUseCase,
+    required this.getTvDetailsUseCase,
   });
 
   @override
@@ -64,6 +71,15 @@ class TvController extends GetxController {
     result.fold(
           (failure) => errorMessage.value = failure.errMessage,
           (success) => onTheAirTvList.value = success,
+    );
+    _isLoading.value = false;
+  }
+  Future<void> fetchTvDetails(int tvId) async {
+    _isLoading.value = true;
+    final result = await getTvDetailsUseCase(TvDetailsParameters(tvId: tvId));
+    result.fold(
+          (failure) => errorMessage.value = failure.errMessage,
+          (success) => tvDetails.value = success,
     );
     _isLoading.value = false;
   }

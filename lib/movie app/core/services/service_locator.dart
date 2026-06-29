@@ -7,6 +7,7 @@ import 'package:clean_architecture_and_solid_principles/movie%20app/movies/domai
 import 'package:clean_architecture_and_solid_principles/movie%20app/movies/domain/usecases/get_recommendation.dart';
 import 'package:clean_architecture_and_solid_principles/movie%20app/movies/presentation/controller/movie_controller.dart';
 import 'package:clean_architecture_and_solid_principles/movie%20app/tvs/data/repository/tv_repository.dart';
+import 'package:clean_architecture_and_solid_principles/movie%20app/tvs/domain/usecases/get_tv_details_use_case.dart';
 import 'package:clean_architecture_and_solid_principles/movie%20app/tvs/domain/usecases/popular_use_case.dart';
 import 'package:clean_architecture_and_solid_principles/movie%20app/tvs/domain/usecases/top_rated_use_case.dart';
 import 'package:get_it/get_it.dart';
@@ -52,6 +53,9 @@ void setupServiceLocator() {
   getIt.registerLazySingleton(
     () => GetTopRatedTvUseCase(getIt<BaseTvRepository>()),
   );
+  getIt.registerLazySingleton(
+    () => GetTvDetailsUseCase(getIt<BaseTvRepository>()),
+  );
 
   /// Repository
   getIt.registerLazySingleton<BaseMoviesRepository>(
@@ -89,6 +93,7 @@ void setupServiceLocator() {
       getPopularUseCase: getIt<GetPopularTvUseCase>(),
       getTopRatedUseCase: getIt<GetTopRatedTvUseCase>(),
       getOnTheAirUseCase: getIt<GetOnTheAirUseCase>(),
+      getTvDetailsUseCase: getIt<GetTvDetailsUseCase>(),
     ),
   );
 }
