@@ -25,11 +25,11 @@ class MovieDetailsParameters extends Equatable {
 }
 
 class RecommendationParameters extends Equatable {
-  final int movieId;
+  final int id;
 
-  const RecommendationParameters({required this.movieId});
+  const RecommendationParameters({required this.id});
 
   @override
-  List<Object?> get props => [movieId];
+  List<Object?> get props => [id];
 }
 

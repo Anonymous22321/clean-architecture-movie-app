@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:clean_architecture_and_solid_principles/movie%20app/tvs/presentation/screens/tv_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:get/get.dart';
@@ -45,8 +46,8 @@ class TvPopularComponent extends GetView<TvController> {
                   child: InkWell(
                     onTap: () async{
                       /// TODO : NAVIGATE TO  MOVIE DETAILS
-                      // await controller.fetchMovieDetails(movie.movieId);
-                      // Get.to(()=> MovieDetailScreen());
+                      controller.fetchTvDetails(controller.popularTvList[index].tvId);
+                      Get.to(()=> TvDetailScreen());
                     },
                     child: ClipRRect(
                       borderRadius: const BorderRadius.all(

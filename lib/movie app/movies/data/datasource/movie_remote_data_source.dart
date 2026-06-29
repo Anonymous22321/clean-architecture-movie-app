@@ -68,7 +68,7 @@ class MovieRemoteDataSource implements BaseMovieRemoteDataSource {
     RecommendationParameters parameters,
   ) async {
     final result = await _api.get(
-      "$movieBaseURL/${parameters.movieId}${MovieEndPoints.recommendations}",
+      "$movieBaseURL/${parameters.id}${MovieEndPoints.recommendations}",
       queryParameters: {"api_key": apiKey},
     );
     return List<RecommendationModel>.from(

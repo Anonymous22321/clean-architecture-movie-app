@@ -102,7 +102,7 @@ class MovieController extends GetxController {
   Future<void> fetchRecommendation(int movieId) async {
     _isLoading.value = true;
     final result = await _getRecommendationUseCase(
-      RecommendationParameters(movieId: movieId),
+      RecommendationParameters(id: movieId),
     );
     result.fold(
       (fail) => error.value = fail.errMessage,

@@ -1,3 +1,4 @@
+import 'package:clean_architecture_and_solid_principles/movie%20app/tvs/domain/entities/recommendations.dart';
 import 'package:clean_architecture_and_solid_principles/movie%20app/tvs/domain/entities/tv_details.dart';
 import 'package:get/get.dart';
 
@@ -7,6 +8,7 @@ import '../../domain/usecases/base_tv.dart';
 import '../../domain/usecases/get_tv_details_use_case.dart';
 import '../../domain/usecases/on_the_air_use_case.dart';
 import '../../domain/usecases/popular_use_case.dart';
+import '../../domain/usecases/recommendation_use_case.dart';
 import '../../domain/usecases/top_rated_use_case.dart';
 
 class TvController extends GetxController {
@@ -14,11 +16,13 @@ class TvController extends GetxController {
   final GetTopRatedTvUseCase getTopRatedUseCase;
   final GetOnTheAirUseCase getOnTheAirUseCase;
   final GetTvDetailsUseCase getTvDetailsUseCase;
+  final GetTvRecommendationsUseCase getTvRecommendationsUseCase;
 
   /// Lists
   final RxList<Tv> popularTvList = <Tv>[].obs;
   final RxList<Tv> topRatedTvList = <Tv>[].obs;
   final RxList<Tv> onTheAirTvList = <Tv>[].obs;
+  final RxList<TvRecommendations> recommendations = <TvRecommendations>[].obs;
 
   final Rxn<TvDetails> tvDetails = Rxn<TvDetails>();
 
@@ -35,6 +39,7 @@ class TvController extends GetxController {
     required this.getTopRatedUseCase,
     required this.getOnTheAirUseCase,
     required this.getTvDetailsUseCase,
+    required this.getTvRecommendationsUseCase,
   });
 
   @override
@@ -81,6 +86,15 @@ class TvController extends GetxController {
           (failure) => errorMessage.value = failure.errMessage,
           (success) => tvDetails.value = success,
     );
+    await fetchTvRecommendations(tvId);
+    _isLoading.value = false;
+  }
+  Future<void> fetchTvRecommendations(int tvId) async {
+    _isLoading.value = true;
+    final result = await getTvRecommendationsUseCase(RecommendationParameters(id: tvId));
+    result.fold(
+          (failure) => errorMessage.value = failure.errMessage,
+          (success) => recommendations.value = success,);
     _isLoading.value = false;
   }
 }

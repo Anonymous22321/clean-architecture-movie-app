@@ -18,6 +18,7 @@ import '../../movies/domain/usecases/get_top_rated_movies.dart';
 import '../../tvs/data/datasource/base_tv_remote_datasource.dart';
 import '../../tvs/domain/repository/base_tv_repository.dart';
 import '../../tvs/domain/usecases/on_the_air_use_case.dart';
+import '../../tvs/domain/usecases/recommendation_use_case.dart';
 import '../../tvs/presentation/controller/tv_controller.dart';
 
 final GetIt getIt = GetIt.instance;
@@ -55,6 +56,9 @@ void setupServiceLocator() {
   );
   getIt.registerLazySingleton(
     () => GetTvDetailsUseCase(getIt<BaseTvRepository>()),
+  );
+  getIt.registerLazySingleton(
+    () => GetTvRecommendationsUseCase(getIt<BaseTvRepository>()),
   );
 
   /// Repository
@@ -94,6 +98,7 @@ void setupServiceLocator() {
       getTopRatedUseCase: getIt<GetTopRatedTvUseCase>(),
       getOnTheAirUseCase: getIt<GetOnTheAirUseCase>(),
       getTvDetailsUseCase: getIt<GetTvDetailsUseCase>(),
+      getTvRecommendationsUseCase: getIt<GetTvRecommendationsUseCase>(),
     ),
   );
 }

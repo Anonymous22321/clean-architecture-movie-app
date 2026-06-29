@@ -6,6 +6,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/utilizes/constance.dart';
+import '../../screens/tv_details_screen.dart';
 
 class TvTopRatedComponent extends GetView<TvController> {
   const TvTopRatedComponent({super.key});
@@ -46,8 +47,8 @@ class TvTopRatedComponent extends GetView<TvController> {
                   child: InkWell(
                     onTap: () async{
                       /// TODO : NAVIGATE TO  MOVIE DETAILS
-                      // await controller.fetchMovieDetails(movie.movieId);
-                      // Get.to(()=> MovieDetailScreen());
+                      controller.fetchTvDetails(controller.topRatedTvList[index].tvId);
+                      Get.to(()=> TvDetailScreen());
                     },
                     child: ClipRRect(
                       borderRadius: const BorderRadius.all(
