@@ -14,6 +14,7 @@ class TvDetailsModel extends TvDetails {
     required super.voteAverage,
     required super.firstAirDate,
     required super.runtime,
+    required super.numberOfSeasons,
   });
 
   factory TvDetailsModel.fromJson(Map<String, dynamic> json) {
@@ -29,6 +30,7 @@ class TvDetailsModel extends TvDetails {
       runtime:(runtimeList != null && runtimeList.isNotEmpty)
           ? runtimeList[0] as int
           : 0,
+      numberOfSeasons: json[numberOfSeasons],
     );
   }
 }

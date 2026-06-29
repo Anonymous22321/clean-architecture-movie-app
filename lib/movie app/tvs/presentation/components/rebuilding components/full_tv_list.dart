@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/utilizes/constance.dart';
+import '../../screens/tv_details_screen.dart';
 
 class FullTvList extends GetView<TvController> {
   final RxList<Tv> tvList;
@@ -20,8 +21,8 @@ class FullTvList extends GetView<TvController> {
         final tv = tvList[index];
         return InkWell(
           onTap: () {
-            // controller.fetchMovieDetails(movie.movieId);
-            // Get.to(() => MovieDetailScreen());
+            controller.fetchTvDetails(tv.tvId);
+            Get.to(() => TvDetailScreen());
           },
           child: Container(
             height: Get.height * .18,

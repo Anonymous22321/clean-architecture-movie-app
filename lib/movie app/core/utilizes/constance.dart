@@ -24,6 +24,7 @@ const String genres = 'genres';
 const String name = 'name';
 const String runtime = 'runtime';
 const String episodeRuntime = 'episode_run_time';
+const String numberOfSeasons = 'number_of_seasons';
 
 /// General Methods
  String imageUrl(String path) => '$imageBaseURL$path';
