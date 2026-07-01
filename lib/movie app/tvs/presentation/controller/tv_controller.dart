@@ -1,8 +1,10 @@
 import 'package:clean_architecture_and_solid_principles/movie%20app/tvs/domain/entities/recommendations.dart';
 import 'package:clean_architecture_and_solid_principles/movie%20app/tvs/domain/entities/tv_details.dart';
+import 'package:clean_architecture_and_solid_principles/movie%20app/tvs/domain/usecases/get_season_use_case.dart';
 import 'package:get/get.dart';
 
 import '../../../movies/domain/usecases/base.dart';
+import '../../domain/entities/seasons.dart';
 import '../../domain/entities/tv.dart';
 import '../../domain/usecases/base_tv.dart';
 import '../../domain/usecases/get_tv_details_use_case.dart';
@@ -17,12 +19,14 @@ class TvController extends GetxController {
   final GetOnTheAirUseCase getOnTheAirUseCase;
   final GetTvDetailsUseCase getTvDetailsUseCase;
   final GetTvRecommendationsUseCase getTvRecommendationsUseCase;
+  final GetSeasonUseCase getSeasonUseCase;
 
   /// Lists
   final RxList<Tv> popularTvList = <Tv>[].obs;
   final RxList<Tv> topRatedTvList = <Tv>[].obs;
   final RxList<Tv> onTheAirTvList = <Tv>[].obs;
   final RxList<TvRecommendations> recommendations = <TvRecommendations>[].obs;
+  final RxList<Season> seasons = <Season>[].obs;
 
   final Rxn<TvDetails> tvDetails = Rxn<TvDetails>();
 
@@ -34,12 +38,21 @@ class TvController extends GetxController {
 
   RxBool get isLoading => _isLoading;
 
+
+  var selectedSeasonIndex = 0.obs;
+
+  // Method to update the index when a user selects a new season
+  void changeSeason(int index) {
+    selectedSeasonIndex.value = index;
+  }
+
   TvController({
     required this.getPopularUseCase,
     required this.getTopRatedUseCase,
     required this.getOnTheAirUseCase,
     required this.getTvDetailsUseCase,
     required this.getTvRecommendationsUseCase,
+    required this.getSeasonUseCase,
   });
 
   @override
@@ -64,8 +77,8 @@ class TvController extends GetxController {
     _isLoading.value = true;
     final result = await getTopRatedUseCase(const NoParameters());
     result.fold(
-          (failure) => errorMessage.value = failure.errMessage,
-          (success) => topRatedTvList.value = success,
+      (failure) => errorMessage.value = failure.errMessage,
+      (success) => topRatedTvList.value = success,
     );
     _isLoading.value = false;
   }
@@ -74,27 +87,49 @@ class TvController extends GetxController {
     _isLoading.value = true;
     final result = await getOnTheAirUseCase(const NoParameters());
     result.fold(
-          (failure) => errorMessage.value = failure.errMessage,
-          (success) => onTheAirTvList.value = success,
+      (failure) => errorMessage.value = failure.errMessage,
+      (success) => onTheAirTvList.value = success,
     );
     _isLoading.value = false;
   }
+
   Future<void> fetchTvDetails(int tvId) async {
     _isLoading.value = true;
+    selectedSeasonIndex.value=0;
     final result = await getTvDetailsUseCase(TvDetailsParameters(tvId: tvId));
     result.fold(
-          (failure) => errorMessage.value = failure.errMessage,
-          (success) => tvDetails.value = success,
+      (failure) => errorMessage.value = failure.errMessage,
+      (success) => tvDetails.value = success,
     );
     await fetchTvRecommendations(tvId);
+    await fetchSeason(tvId, 1);
     _isLoading.value = false;
   }
+
   Future<void> fetchTvRecommendations(int tvId) async {
     _isLoading.value = true;
-    final result = await getTvRecommendationsUseCase(RecommendationParameters(id: tvId));
+    final result = await getTvRecommendationsUseCase(
+      RecommendationParameters(id: tvId),
+    );
     result.fold(
-          (failure) => errorMessage.value = failure.errMessage,
-          (success) => recommendations.value = success,);
+      (failure) => errorMessage.value = failure.errMessage,
+      (success) => recommendations.value = success,
+    );
+    _isLoading.value = false;
+  }
+
+  Future<void> fetchSeason(int tvId, int seasonNumber) async {
+    _isLoading.value = true;
+    seasons.clear();
+    for (var i = 1; i <= tvDetails.value!.numberOfSeasons; i++) {
+      final result = await getSeasonUseCase(
+        SeasonParameters(tvId: tvId, seasonNumber: i),
+      );
+      result.fold(
+        (failure) => errorMessage.value = failure.errMessage,
+        (success) => seasons.add(success),
+      );
+    }
     _isLoading.value = false;
   }
 }

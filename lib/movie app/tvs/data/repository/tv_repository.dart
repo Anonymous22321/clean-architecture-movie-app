@@ -3,6 +3,7 @@ import 'package:clean_architecture_and_solid_principles/movie%20app/core/errors/
 import 'package:clean_architecture_and_solid_principles/movie%20app/movies/domain/usecases/base.dart';
 import 'package:clean_architecture_and_solid_principles/movie%20app/tvs/data/datasource/base_tv_remote_datasource.dart';
 import 'package:clean_architecture_and_solid_principles/movie%20app/tvs/domain/entities/recommendations.dart';
+import 'package:clean_architecture_and_solid_principles/movie%20app/tvs/domain/entities/seasons.dart';
 import 'package:clean_architecture_and_solid_principles/movie%20app/tvs/domain/entities/tv.dart';
 import 'package:clean_architecture_and_solid_principles/movie%20app/tvs/domain/entities/tv_details.dart';
 import 'package:clean_architecture_and_solid_principles/movie%20app/tvs/domain/repository/base_tv_repository.dart';
@@ -47,7 +48,7 @@ class TvRepository implements BaseTvRepository {
   @override
   Future<Either<Failure, TvDetails>> getTvDetails(
     TvDetailsParameters parameters,
-  ) async{
+  ) async {
     try {
       final result = await baseTvRemoteDataSource.getTvDetails(parameters);
       return Right(result);
@@ -57,9 +58,23 @@ class TvRepository implements BaseTvRepository {
   }
 
   @override
-  Future<Either<Failure, List<TvRecommendations>>> getRecommendations(RecommendationParameters parameters)async {
+  Future<Either<Failure, List<TvRecommendations>>> getRecommendations(
+    RecommendationParameters parameters,
+  ) async {
     try {
-      final result = await baseTvRemoteDataSource.getTvRecommendations(parameters);
+      final result = await baseTvRemoteDataSource.getTvRecommendations(
+        parameters,
+      );
+      return Right(result);
+    } on ServerExceptions catch (failure) {
+      return Left(ServerFailure(failure.errorModel.statusMessage));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Season>> getSeason(SeasonParameters parameters) async {
+    try {
+      final result = await baseTvRemoteDataSource.getSeason(parameters);
       return Right(result);
     } on ServerExceptions catch (failure) {
       return Left(ServerFailure(failure.errorModel.statusMessage));

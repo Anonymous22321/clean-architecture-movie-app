@@ -25,6 +25,12 @@ const String name = 'name';
 const String runtime = 'runtime';
 const String episodeRuntime = 'episode_run_time';
 const String numberOfSeasons = 'number_of_seasons';
+const String stillPath = 'still_path';
+const String airDate = 'air_date';
+const String episodeNumber = 'episode_number';
+const String seasonNumber = 'season_number';
+const String episodes = 'episodes';
+const String showId= 'show_id';
 
 /// General Methods
  String imageUrl(String path) => '$imageBaseURL$path';

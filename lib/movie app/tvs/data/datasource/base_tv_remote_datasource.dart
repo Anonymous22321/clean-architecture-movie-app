@@ -4,6 +4,7 @@ import '../../../core/utilizes/constance.dart';
 import '../../../movies/domain/usecases/base.dart';
 import '../../domain/usecases/base_tv.dart';
 import '../models/recommendation_model.dart';
+import '../models/season_model.dart';
 import '../models/tv_details_model.dart';
 import '../models/tv_model.dart';
 
@@ -13,7 +14,8 @@ abstract class BaseTvRemoteDatasource
         GetPopular,
         GetTopRated,
         GetTvDetails,
-        GetTvRecommendations {}
+        GetTvRecommendations,
+        GetSeason {}
 
 class TvRemoteDatasource implements BaseTvRemoteDatasource {
   final ApiConsumer _api;
@@ -76,6 +78,15 @@ class TvRemoteDatasource implements BaseTvRemoteDatasource {
       ),
     );
   }
+
+  @override
+  Future<SeasonModel> getSeason(SeasonParameters parameters) async {
+    final response = await _api.get(
+      "$tvBaseURL/${parameters.tvId}/season/${parameters.seasonNumber}",
+      queryParameters: {"api_key": apiKey},
+    );
+    return SeasonModel.fromJson(response);
+  }
 }
 
 /// TV Remote Datasource Methods
@@ -99,4 +110,8 @@ abstract class GetTvRecommendations {
   Future<List<TvRecommendationsModel>> getTvRecommendations(
     RecommendationParameters parameters,
   );
+}
+
+abstract class GetSeason {
+  Future<SeasonModel> getSeason(SeasonParameters parameters);
 }

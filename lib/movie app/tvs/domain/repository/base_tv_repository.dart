@@ -5,6 +5,7 @@ import 'package:clean_architecture_and_solid_principles/movie%20app/tvs/domain/e
 import 'package:dartz/dartz.dart';
 
 import '../../../movies/domain/usecases/base.dart';
+import '../entities/seasons.dart';
 import '../usecases/base_tv.dart';
 
 abstract class BaseTvRepository {
@@ -21,4 +22,5 @@ abstract class BaseTvRepository {
   Future<Either<Failure, List<TvRecommendations>>> getRecommendations(
     RecommendationParameters parameters,
   );
+  Future<Either<Failure, Season>> getSeason(SeasonParameters parameters);
 }

@@ -22,7 +22,7 @@ class TvDetailsModel extends TvDetails {
     return TvDetailsModel(
       name: json[name],
       overview: json[overview],
-      backdropPath: json[backdropPath],
+      backdropPath: json[backdropPath]??'',
       tvId: json[id],
       genres: List.from(json[genres].map((genre) => Genres.fromJson(genre))),
       voteAverage: json[voteAverage],
